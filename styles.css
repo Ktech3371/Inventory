@@ -1,0 +1,22 @@
+/* Basic styling for the calculator */
+.calculator {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #3e4b5c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* Additional styling as needed */
+/* Feel free to customize further! */
