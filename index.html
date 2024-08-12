@@ -1,18 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Cost Calculator</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="calculator">
-        <input type="number" id="weight" placeholder="Weight (lbs)">
-        <input type="number" id="cost" placeholder="Cost per pound ($)">
-        <button onclick="calculateCost()">Calculate Total Cost</button>
-        <p id="totalCost"></p>
+      <input type="number" id="weight" placeholder="Weight" />
+      <select id="weightUnit">
+        <option value="grams">grams</option>
+        <option value="oz">ounces (oz)</option>
+        <option value="lbs">pounds (lbs)</option>
+        <!-- Add more options for other weight units if needed -->
+      </select>
+      <input type="number" id="cost" placeholder="Cost" />
+      <select id="costUnit">
+        <option value="dollars">dollars ($)</option>
+        <!-- Add more options for other cost units if needed -->
+      </select>
+      <button onclick="calculateCost()">Calculate Cost per Unit</button>
+      <p id="costPerUnit"></p>
     </div>
-    <script src="script.js"></script>
-</body>
+    <script>
+      function calculateCost() {
+        const weight = parseFloat(document.getElementById("weight").value);
+        const weightUnit = document.getElementById("weightUnit").value;
+        const cost = parseFloat(document.getElementById("cost").value);
+        const costUnit = document.getElementById("costUnit").value;
+
+        if (!isNaN(weight) && !isNaN(cost)) {
+          // Convert weight to grams, ounces, or pounds based on selected unit
+          let weightConverted;
+          if (weightUnit === "oz") {
+            weightConverted = weight * 28.3495; // 1 oz = 28.3495 g
+          } else if (weightUnit === "lbs") {
+            weightConverted = weight * 453.59237; // 1 lb = 453.59237 g
+          } else {
+            weightConverted = weight;
+          }
+
+          // Calculate cost per unit (in dollars)
+          const costPerUnit = cost / weightConverted;
+
+          // Display the result
+          document.getElementById(
+            "costPerUnit"
+          ).textContent = `Cost per ${weightUnit}: $${costPerUnit.toFixed(4)}`;
+        } else {
+          document.getElementById("costPerUnit").textContent =
+            "Please enter valid numbers.";
+        }
+      }
+    </script>
+  </body>
 </html>
+
